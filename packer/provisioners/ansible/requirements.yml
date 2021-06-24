@@ -1,0 +1,5 @@
+---
+- src: <git@repossh.git>
+  version: <versao_tag> # release do repositorio a ser utilizado na dependencia
+  scm: git
+  name: <nome_pasta_download> # siga o mesmo nome que estiver no meta > role_name

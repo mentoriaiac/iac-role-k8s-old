@@ -1,0 +1,41 @@
+- name: Instalação de ferramenta Kube na unha 
+  block:
+    - name: Coletar URL informação de release do Kubernetes
+      uri:
+        url: "{{ k8s.release_url }}"
+        method: GET
+        return_content: yes
+      register: k8s_release
+
+    - name: Versão do K8s
+      debug:
+        msg: "{{ k8s_release.content  }}"
+
+    - name: Instalação do Kube -> adm, let and ctl
+      get_url:
+        url: "https://storage.googleapis.com/kubernetes-release/release/{{ k8s_release.content }}/bin/linux/amd64/{{ item }}"
+        dest: /usr/bin/
+        mode: u+x
+      loop:
+        - kubeadm
+        - kubelet
+        - kubectl
+
+    - name: Arquivo de Kubeadm Conf 
+      ansible.builtin.file:
+        path: "{{ k8s.kubeadm.folder }}"
+        state: directory
+        mode: 0644
+
+    - name: Download Kubeadm config
+      get_url:
+        url: "{{ k8s.kubeadm.url }}{{ k8s.kubeadm.version }}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf"
+        dest: "{{ k8s.kubeadm.folder }}"
+        mode: 0644 
+
+    - name: Configura Kubectl Service
+      get_url:
+        url: "{{ k8s.kubelet.url }}{{ k8s.kubelet.version }}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service"
+        dest: "{{ k8s.kubelet.folder }}"
+        mode: 0644
+  when: not package.enabled

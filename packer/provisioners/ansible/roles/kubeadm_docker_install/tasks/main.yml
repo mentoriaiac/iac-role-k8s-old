@@ -1,0 +1,4 @@
+---
+# tasks file for kubeadm_docker_install
+- name: Instalção Binarios
+  include_tasks: instalacao_binarios.yml

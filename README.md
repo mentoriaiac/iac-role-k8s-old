@@ -1,14 +1,13 @@
-# Packer Template
+# Kubernetes Imagem Padrão
 
-Este repositório contém a estrutura básica para criação de um Packer template além de um pipeline para validação do template e demais arquivos necessários.
-
-O Packer template será utilizado em conjunto com playbooks Ansible para que a imagem resultante seja utilizada pelo Terraform no provisionamento dos ambientes.
-
+Este repositório contém a role necessárias para criação de uma imagem base de [kubernetes](https://kubernetes.io), utilizando o [Docker](https://docker.com).
 ## Requisitos
 
-| Nome      	| Versao 	|
+| Nome      	  | Versao 	|
 |--------------	|---------	|
 |   Packer      |  >=1.7    |
+|   ansible     | >=2.10.5 |
+| molecule[docker] | >=3.2.2 |
 
 
 ## Variáveis
