@@ -22,7 +22,7 @@ endif
 
 ## Local environment
 URL_PACKER ?= https://releases.hashicorp.com/packer/1.7.3/packer_1.7.3_linux_amd64.zip
-
+ANSIBLE_ROLES_PATH=packer/provisioners/ansible/roles
 
 .PHONY = help
 help: ## Mostra o help.
@@ -38,6 +38,16 @@ setup: ## Configure seu ambiente (considera -se uma versão linux debian ou deri
 
 ## need implements the default targets for pipeline
 
+validate:
+# Validate roles
+	@for i in $$(ls ${ANSIBLE_ROLES_PATH}); do \
+			echo $$i; \
+			cd ${ANSIBLE_ROLES_PATH}/$$i && molecule verify && cd -; echo $$i; \
+ 	done
+# Validate packer
+	@cd packer \
+		&& packer validate .
+
 build: ## packer image
 	@cd packer \
 		&& packer validate . \
@@ -48,5 +58,5 @@ deploy:
 	@echo "Não implementado ainda" 
 
 pre_test: ## pre-validate the role and check if breaks
-	@cd packer/provisioners/ansible/roles/kubeadm_docker_install &&
+	@cd packer/provisioners/ansible/roles/kubeadm_docker_install && \
 		molecule test

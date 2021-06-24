@@ -1,5 +1,6 @@
 build {
-  sources = [""]
+  sources = ["sources.googlecompute.basic-example"]
+
 
     provisioner "ansible" {
     // Use apenas queria uma configuração customizada e geral

@@ -18,6 +18,17 @@ Todas as variáveis que são necessárias no arquivo variables.pkr.hcl para exec
 |--------------	|---------	|----------	|----------------------------------------------------------------------------------------	|
 |               |           |           |                                                                                           |
 
+## Configurações do ambiente
+
+Para configurações iniciais do ambiente de desenvolvimento (apenas Debian e Ubuntu)
+rode o comando abaixo:
+
+```bash
+make setup 
+```
+
+Ele irá instalar localmente i.e. em sua maquina, os programas listados no [requirements.txt](packer/provisioners/ansible/requirements.txt) e logo em seguinda o [packer](https://packer.io)
+
 ## Como Testar Localmente
 
 1- Editar os arquivos no diretório ``packer/`` de acordo com as variáveis, source e provisioners necessários.
