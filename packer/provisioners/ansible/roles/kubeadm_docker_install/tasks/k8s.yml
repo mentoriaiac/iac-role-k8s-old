@@ -1,3 +1,26 @@
+---
+- name: Instalação da ferramenta Kube
+  block:
+    - name: Adicione k8s keys
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: Instalação dos modulos k8s
+      apt_repository:
+        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+
+    - name: Instalação dos packages k8s 
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - kubelet
+        - kubeadm
+        - kubectl
+  when: package.enabled
+    
 - name: Instalação de ferramenta Kube na unha 
   block:
     - name: Coletar URL informação de release do Kubernetes
