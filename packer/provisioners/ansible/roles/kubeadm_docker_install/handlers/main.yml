@@ -1,0 +1,14 @@
+---
+
+- name: Habilita DockerD
+  systemd:
+    state: started
+    name: docker
+    enabled: yes
+    daemon-reload: yes
+
+- name: Swap Off
+  systemd:
+    state: started
+    name: swapf
+    enabled: yes

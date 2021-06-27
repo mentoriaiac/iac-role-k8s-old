@@ -1,0 +1,14 @@
+---
+# tasks file for kubeadm_docker_install
+- name: Configuração K8s Ubuntu
+  block:
+  - name: Atualização SO
+    include_tasks: update.yml
+  - name: Desliga Swapp
+    include_tasks: swapoff.yml
+  - name: Instalação Docker
+    include_tasks: docker.yml
+  - name: Configuração de requisitos do k8s
+    include_tasks: req_k8s.yml
+  - name: Instalação do K8s
+    include_tasks: k8s.yml

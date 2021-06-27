@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include kubeadm_docker_install"
+      include_role:
+        name: "kubeadm_docker_install"

@@ -1,0 +1,11 @@
+[Unit]
+Description=SwapOFF
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/swapoff -a
+
+[Install]
+WantedBy=multi-user.target

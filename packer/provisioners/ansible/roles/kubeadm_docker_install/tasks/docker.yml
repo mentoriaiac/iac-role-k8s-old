@@ -1,0 +1,51 @@
+---
+- name: Configuração do docker
+  block:
+    - name: Adição da chave do docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    
+    - name: Registro de Versão do ubuntu
+      command: lsb_release -cs
+      register: ubuntu_version
+      changed_when: False
+    
+    - name: Nome da versão do ubuntu  
+      debug:
+        msg: "{{ ubuntu_version.stdout }}"
+
+    - name: Adiciona o repositorio do docker
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
+        state: present
+
+    - name: Instalação do Docker
+      apt:
+        package: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - docker-ce 
+        - docker-ce-cli 
+        - containerd.io
+
+    - name: Configura usuário base do docker
+      user:
+        name: "{{ usuario_default }}"
+        state: present
+        group: docker
+      
+    - name: Cria Pasta de configuração do docker
+      file:
+        state: directory
+        path: /etc/docker
+        mode: 0644
+
+    - name: Configuração do Systemd para Docker
+      copy:
+        src: files/daemon.json
+        dest: /etc/docker/daemon.json
+        mode: 0644      
+      notify:
+        - Habilita DockerD

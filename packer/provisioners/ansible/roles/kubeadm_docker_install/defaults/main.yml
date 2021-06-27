@@ -1,0 +1,14 @@
+---
+# defaults file for kubeadm_docker_install
+ubuntu:
+  packages:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
+
+usuario_default: mentoria
+
+package:
+  enabled: True

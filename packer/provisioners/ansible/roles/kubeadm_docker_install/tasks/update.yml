@@ -1,0 +1,12 @@
+---
+- name: Instalação dos packages
+  apt:
+    name: "{{ ubuntu.packages }}"
+    state: present
+    update_cache: yes
+
+- name: SO Upgrade (apt-get full-upgrade)
+  apt:
+    upgrade: full
+    autoremove: yes
+    autoclean: yes
