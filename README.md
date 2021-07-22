@@ -1,42 +1,44 @@
-# Kubernetes Imagem Padrão
+Kubeadem install
+=========
 
-Este repositório contém a role necessárias para criação de uma imagem base de [kubernetes](https://kubernetes.io), utilizando o [Docker](https://docker.com).
-## Requisitos
+<!-- TODO - Configurar o "storage-driver": "overlay2" para docker -->
 
-| Nome      	  | Versao 	|
-|--------------	|---------	|
-|   Packer      |  >=1.7    |
-|   ansible     | >=2.10.5 |
-| molecule[docker] | >=3.2.2 |
+Requisitos
+------------
+Não existe um requisito para rodar a role em si. Porém para avaliar a role separadamente o [molecule](https://molecule.readthedocs.io/).
 
+Variaveis Role
+--------------
+```yml
+ubuntu:
+  packages:
+    # packages necessários 
+  usuario_default: # usuario base do docker
 
-## Variáveis
-
-Todas as variáveis que são necessárias no arquivo variables.pkr.hcl para executar o template: 
-
-| Variable     	| Default 	| Required 	| Description                                                                            	|
-|--------------	|---------	|----------	|----------------------------------------------------------------------------------------	|
-|               |           |           |                                                                                           |
-
-## Configurações do ambiente
-
-Para configurações iniciais do ambiente de desenvolvimento (apenas Debian e Ubuntu)
-rode o comando abaixo:
-
-```bash
-make setup 
+# Instalação do K8s via gerenciador de pacotes
+package:
+  enabled: True
 ```
+Dependências
+------------
 
-Ele irá instalar localmente i.e. em sua maquina, os programas listados no [requirements.txt](packer/provisioners/ansible/requirements.txt) e logo em seguinda o [packer](https://packer.io)
+Nenhuma
 
-## Como Testar Localmente
+Example Playbook
+----------------
 
-1- Editar os arquivos no diretório ``packer/`` de acordo com as variáveis, source e provisioners necessários.
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yml
+    - hosts: all # include only 
+      roles:
+         - kubeadm_docker_install
+```
+License
+-------
 
-2- Executar comando ``make validate`` para o validate e formating da imagem.
+BSD
 
-3- (Opcional) ``make build`` faz o build da imagem na plataforma configurada no arquivo ``packer/source.pkr.hcl``
+Author Information
+------------------
 
-## Observações
-
-- Motivo do uso de HCL2 ao invés de json: As of version 1.7.0, HCL2 support is no longer in beta and is the **preferred way to write Packer configuration(s)** - [Hashicorp Docs](https://www.packer.io/guides/hcl/from-json-v1)
+Time de Mentroria de IaC.
