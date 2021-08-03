@@ -12,3 +12,5 @@ usuario_default: mentoria
 
 package:
   enabled: True
+
+disable_swap: True

@@ -4,4 +4,6 @@
   tasks:
     - name: "Include kubeadm_docker_install"
       include_role:
-        name: "kubeadm_docker_install"
+        name: "iac-role-k8s"
+      vars:
+        disable_swap: False

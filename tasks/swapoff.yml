@@ -1,11 +1,14 @@
 ---
-- name: Configure Swap
-  copy:
-    src: files/swapf.service
-    dest: /lib/systemd/system/swapf.service
-    mode: 0644
-  notify: Swap Off
+- name: Disable swap
+  block:
+    - name: Configure Swap
+      copy:
+        src: files/swapf.service
+        dest: /lib/systemd/system/swapf.service
+        mode: 0644
+      notify: Swap Off
 
-- name: Turn off swap online
-  command: swapoff -a
-  changed_when: False
+    - name: Turn off swap online
+      command: swapoff -a
+      changed_when: False
+  when: disable_swap
