@@ -5,13 +5,13 @@
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
-    
+
     - name: Registro de Versão do ubuntu
       command: lsb_release -cs
       register: ubuntu_version
       changed_when: False
-    
-    - name: Nome da versão do ubuntu  
+
+    - name: Nome da versão do ubuntu
       debug:
         msg: "{{ ubuntu_version.stdout }}"
 
@@ -26,8 +26,8 @@
         state: present
         update_cache: yes
       loop:
-        - docker-ce 
-        - docker-ce-cli 
+        - docker-ce
+        - docker-ce-cli
         - containerd.io
 
     - name: Configura usuário base do docker
@@ -35,7 +35,7 @@
         name: "{{ usuario_default }}"
         state: present
         group: docker
-      
+
     - name: Cria Pasta de configuração do docker
       file:
         state: directory
@@ -46,6 +46,6 @@
       copy:
         src: files/daemon.json
         dest: /etc/docker/daemon.json
-        mode: 0644      
+        mode: 0644
       notify:
         - Habilita DockerD
