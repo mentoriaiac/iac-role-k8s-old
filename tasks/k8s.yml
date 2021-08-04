@@ -11,7 +11,7 @@
         repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
         state: present
 
-    - name: Instalação dos packages k8s 
+    - name: Instalação dos packages k8s
       apt:
         name: "{{ packages }}"
       vars:
@@ -20,8 +20,8 @@
         - kubeadm
         - kubectl
   when: package.enabled
-    
-- name: Instalação de ferramenta Kube na unha 
+
+- name: Instalação de ferramenta Kube na unha
   block:
     - name: Coletar URL informação de release do Kubernetes
       uri:
@@ -44,7 +44,7 @@
         - kubelet
         - kubectl
 
-    - name: Arquivo de Kubeadm Conf 
+    - name: Arquivo de Kubeadm Conf
       ansible.builtin.file:
         path: "{{ k8s.kubeadm.folder }}"
         state: directory
@@ -54,7 +54,7 @@
       get_url:
         url: "{{ k8s.kubeadm.url }}{{ k8s.kubeadm.version }}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf"
         dest: "{{ k8s.kubeadm.folder }}"
-        mode: 0644 
+        mode: 0644
 
     - name: Configura Kubectl Service
       get_url:
