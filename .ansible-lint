@@ -1,4 +1,4 @@
----
+# .ansible-lint
 exclude_paths:
   - .github/
   - .cache/
@@ -7,3 +7,6 @@ offline: false
 use_default_rules: true
 parseable: true
 verbosity: 1
+warn_list:
+  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern
+  - '106'
